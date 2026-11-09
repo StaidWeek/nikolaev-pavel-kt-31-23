@@ -33,5 +33,15 @@ namespace PavelNikolaevKt_31_23.Controllers
             var result = await _gradeService.UpdateGradeAsync(id, newValue, token);
             return result == null ? NotFound() : Ok(result);
         }
+
+        [HttpGet("avg-discipline-by-name")]
+        public async Task<IActionResult> GetAvgByDisciplineName([FromQuery] string name, CancellationToken token)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return BadRequest("Название дисциплины не может быть пустым.");
+
+            var result = await _gradeService.GetAverageGradeByDisciplineNameAsync(name, token);
+            return Ok(result);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace PavelNikolaevKt_31_23.Interfaces
         Task<double> GetAverageGradeByCourseAsync(int course, CancellationToken token);
         Task<Grade> AddGradeAsync(Grade grade, CancellationToken token);
         Task<Grade?> UpdateGradeAsync(int id, int newValue, CancellationToken token);
+        Task<double> GetAverageGradeByDisciplineNameAsync(string disciplineName, CancellationToken token);
     }
 }

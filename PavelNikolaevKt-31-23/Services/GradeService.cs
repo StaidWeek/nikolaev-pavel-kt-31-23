@@ -53,5 +53,20 @@ namespace PavelNikolaevKt_31_23.Services
             await _context.SaveChangesAsync(token);
             return grade;
         }
+
+        // Средний балл по названию дисциплины среди всех групп
+        public async Task<double> GetAverageGradeByDisciplineNameAsync(string disciplineName, CancellationToken token)
+        {
+            if (string.IsNullOrWhiteSpace(disciplineName))
+                return 0;
+
+            var avg = await _context.Grades
+                .Where(g => g.Discipline != null &&
+                            !g.Discipline.IsDeleted &&
+                            g.Discipline.Name == disciplineName)
+                .AverageAsync(g => (double?)g.Value, token);
+
+            return avg ?? 0; // Если оценок нет, вернет 0
+        }
     }
 }
